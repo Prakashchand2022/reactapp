@@ -1,0 +1,1 @@
+mongodb+srv://mongodbuser:<password>@cluster0.gogok.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
