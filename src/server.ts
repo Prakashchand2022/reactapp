@@ -5,6 +5,8 @@ import UserRouter from './routers/UserRouter';
 import PostRouter from './routers/PostRouter';
 import CommentRouter from './routers/CommentRouter';
 import bodyParser = require('body-parser');
+import * as path from 'path';
+import * as cors from 'cors';
 
 export class Server {
     public app: express.Application = express();
@@ -12,12 +14,18 @@ export class Server {
     constructor() {
         this.setConfigurations();
         this.setRoutes();
+        this.reactBuild();
         this.error404Handler();
         this.handleErrors();
     }
 
     setConfigurations() {
         this.connectMongoDb();
+        this.app.use(cors({
+            origin:'http://localhost:3000',
+             
+            
+           }));
         this.configureBodyParser();
     }
 
@@ -27,17 +35,35 @@ export class Server {
             console.log('connected to database');
         });
     }
+s
+
+   
 
     configureBodyParser() {
-        this.app.use(bodyParser.urlencoded({extended: true}));
+       
+        this.app.use(express.urlencoded({extended: true}));
+        this.app.use(express.json());
+
     }
 
     setRoutes() {
+        
         this.app.use('/src/uploads',express.static('src/uploads'));
         this.app.use('/api/user', UserRouter);
         this.app.use('/api/post', PostRouter);
         this.app.use('/api/comment',CommentRouter);
+        
     }
+
+
+reactBuild(){
+this.app.use(express.static(path.join(__dirname, "build")));
+this.app.get("/*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "build", "index.html"));
+}); 
+}
+
+
 
     error404Handler() {
         this.app.use((req, res) => {

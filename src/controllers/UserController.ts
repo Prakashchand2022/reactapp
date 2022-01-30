@@ -39,7 +39,7 @@ export class UserController{
     
         let user =await new User(data).save();
         res.send(user);
-       await NodeMailer.sendEmail({
+        await NodeMailer.sendEmail({
         to:[user.email],
         subject:'Email Verification',
         html:`<h1>${verificationToken}</h1>`})
@@ -116,7 +116,7 @@ static async resendVerificationEmail(req, res, next){
 
 
 static async login(req, res, next) {
-    const password = req.query.password;
+    const password = req.body.password;
     const user = req.user;
     try {
         await Utils.comparePassword({

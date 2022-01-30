@@ -84,8 +84,8 @@ export class UserValidators{
 
 
 
-   static login(){
-    return [query('email','Email is Required').isEmail()
+   static login(){  
+    return [body('email','Email is Required').isEmail()
     .custom((email,{req})=>{
 
       return User.findOne({email:email}).then(user=>{
@@ -100,7 +100,7 @@ export class UserValidators{
 
       })
 
-    }),query('password','Password is Required').isAlphanumeric()]
+    }),body('password','Password is Required').isAlphanumeric()]
    }
 
 
