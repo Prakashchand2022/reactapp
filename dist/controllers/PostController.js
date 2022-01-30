@@ -62,7 +62,7 @@ class PostController {
     static getAllPost(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             const page = parseInt(req.query.page) || 1;
-            const perPage = 2;
+            const perPage = 3;
             let currentPage = page;
             let prevPage = page === 1 ? null : page - 1;
             let pageToken = page + 1;

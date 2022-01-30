@@ -16,12 +16,13 @@ class UserRouter {
     }
     getRoutes() {
         this.router.get('/send/verification/email', globalMiddleware_1.GlobalMiddleware.authenticate, UserController_1.UserController.resendVerificationEmail);
-        this.router.get('/login', UserValidators_1.UserValidators.login(), globalMiddleware_1.GlobalMiddleware.CheckError, UserController_1.UserController.login);
+        // this.router.get('/login',UserValidators.login(),GlobalMiddleware.CheckError,UserController.login);
         this.router.get('/reset/password', UserValidators_1.UserValidators.sendResetPasswordEmail(), globalMiddleware_1.GlobalMiddleware.CheckError, UserController_1.UserController.sendResetPasswordEmail);
         this.router.get('/verifiy/resetPasswordToken', UserValidators_1.UserValidators.verifyResetPasswordToken(), globalMiddleware_1.GlobalMiddleware.CheckError, UserController_1.UserController.verifyResetPasswordToken);
     }
     postRoutes() {
         this.router.post('/signup', UserValidators_1.UserValidators.signup(), globalMiddleware_1.GlobalMiddleware.CheckError, UserController_1.UserController.signup);
+        this.router.post('/login', UserValidators_1.UserValidators.login(), globalMiddleware_1.GlobalMiddleware.CheckError, UserController_1.UserController.login);
     }
     patchRoutes() {
         this.router.patch('/verify', globalMiddleware_1.GlobalMiddleware.authenticate, UserValidators_1.UserValidators.verifyUser(), globalMiddleware_1.GlobalMiddleware.CheckError, UserController_1.UserController.verify);

@@ -4,8 +4,10 @@ export declare class Server {
     constructor();
     setConfigurations(): void;
     connectMongoDb(): void;
+    s: any;
     configureBodyParser(): void;
     setRoutes(): void;
+    reactBuild(): void;
     error404Handler(): void;
     handleErrors(): void;
 }

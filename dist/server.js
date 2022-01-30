@@ -7,17 +7,22 @@ const mongoose = require("mongoose");
 const UserRouter_1 = require("./routers/UserRouter");
 const PostRouter_1 = require("./routers/PostRouter");
 const CommentRouter_1 = require("./routers/CommentRouter");
-const bodyParser = require("body-parser");
+const path = require("path");
+const cors = require("cors");
 class Server {
     constructor() {
         this.app = express();
         this.setConfigurations();
         this.setRoutes();
+        this.reactBuild();
         this.error404Handler();
         this.handleErrors();
     }
     setConfigurations() {
         this.connectMongoDb();
+        this.app.use(cors({
+            origin: 'https://erprakash.tech',
+        }));
         this.configureBodyParser();
     }
     connectMongoDb() {
@@ -27,13 +32,20 @@ class Server {
         });
     }
     configureBodyParser() {
-        this.app.use(bodyParser.urlencoded({ extended: true }));
+        this.app.use(express.urlencoded({ extended: true }));
+        this.app.use(express.json());
     }
     setRoutes() {
         this.app.use('/src/uploads', express.static('src/uploads'));
         this.app.use('/api/user', UserRouter_1.default);
         this.app.use('/api/post', PostRouter_1.default);
         this.app.use('/api/comment', CommentRouter_1.default);
+    }
+    reactBuild() {
+        this.app.use(express.static(path.join(__dirname, "build")));
+        this.app.get("/*", (req, res) => {
+            res.sendFile(path.resolve(__dirname, "build", "index.html"));
+        });
     }
     error404Handler() {
         this.app.use((req, res) => {

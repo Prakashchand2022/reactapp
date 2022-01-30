@@ -72,7 +72,7 @@ class UserValidators {
             })];
     }
     static login() {
-        return [(0, express_validator_1.query)('email', 'Email is Required').isEmail()
+        return [(0, express_validator_1.body)('email', 'Email is Required').isEmail()
                 .custom((email, { req }) => {
                 return User_1.default.findOne({ email: email }).then(user => {
                     if (user) {
@@ -83,7 +83,7 @@ class UserValidators {
                         throw new Error('User Does Not Exist');
                     }
                 });
-            }), (0, express_validator_1.query)('password', 'Password is Required').isAlphanumeric()];
+            }), (0, express_validator_1.body)('password', 'Password is Required').isAlphanumeric()];
     }
     static sendResetPasswordEmail() {
         return [(0, express_validator_1.query)('email').isEmail().custom((email, { req }) => {

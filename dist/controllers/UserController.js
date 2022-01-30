@@ -96,7 +96,7 @@ class UserController {
     }
     static login(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            const password = req.query.password;
+            const password = req.body.password;
             const user = req.user;
             try {
                 yield Utils_1.Utils.comparePassword({

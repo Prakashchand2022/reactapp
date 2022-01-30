@@ -22,7 +22,7 @@ export class Server {
     setConfigurations() {
         this.connectMongoDb();
         this.app.use(cors({
-            origin:'http://localhost:3000',
+            origin:'https://erprakash.tech',
              
             
            }));
